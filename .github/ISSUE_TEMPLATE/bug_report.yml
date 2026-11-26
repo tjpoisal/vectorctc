@@ -1,0 +1,32 @@
+name: Bug report
+description: The gate did something wrong (false hold, missed defect, crash, bad config output)
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "Security issue? Do not file it here — email tim@deployunimatrix.com (see SECURITY.md)."
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations: { required: true }
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: The smallest file / diff that shows it. Paste the `ctc check --json` output if you have it.
+    validations: { required: true }
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      options: [False positive (clean code held), Missed defect, Crash or error, Agent setup (ctc init), Other]
+    validations: { required: true }
+  - type: input
+    id: version
+    attributes: { label: "VectorCTC version (`ctc --version`)" }
+    validations: { required: true }
+  - type: input
+    id: env
+    attributes: { label: "Node.js version, OS, and agent (Cursor / Claude Code / Copilot / …)" }
+    validations: { required: true }

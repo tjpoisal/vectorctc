@@ -1,0 +1,12 @@
+# For https://pre-commit.com — add to .pre-commit-config.yaml:
+#   - repo: https://github.com/tjpoisal/vectorctc   # placeholder until the public repo exists
+#     rev: v0.4.0
+#     hooks: [{ id: vectorctc }]            # add `args: [--scope]` to also hold files outside the milestone paths
+- id: vectorctc
+  name: VectorCTC gate (staged files)
+  description: Runs the VectorCTC gate on the staged version of every changed file, diff-aware against HEAD.
+  entry: ctc git-guard pre-commit
+  language: node
+  pass_filenames: false
+  always_run: true
+  stages: [pre-commit]

@@ -1,0 +1,88 @@
+{
+  "name": "vectorctc",
+  "version": "0.5.0",
+  "description": "VectorCTC (Code Traffic Control): a local MCP server and CLI that deterministically gates AI coding agents\u2019 writes before they hit disk.",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agents",
+    "cursor",
+    "claude-code",
+    "copilot",
+    "code-review",
+    "guardrails",
+    "static-analysis",
+    "typescript",
+    "pre-commit"
+  ],
+  "homepage": "https://vectorctc.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tjpoisal/vectorctc.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tjpoisal/vectorctc/issues"
+  },
+  "author": "Timothy Poisal <tim@deployunimatrix.com>",
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=20.11"
+  },
+  "bin": {
+    "ctc": "./dist/index.js",
+    "vectorctc": "./dist/index.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.map",
+    "data",
+    "ctc.config.example.json",
+    "README.md",
+    "CHANGELOG.md",
+    "SECURITY.md",
+    "LICENSE",
+    "NOTICE",
+    "THIRD_PARTY_NOTICES.md",
+    "scripts/prepare.mjs"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.tests.json --noEmit",
+    "lint": "eslint src tests scripts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check": "npm run lint && npm run typecheck && npm run build && npm test",
+    "prepublishOnly": "npm run check",
+    "ctc": "node dist/index.js",
+    "prepare": "node scripts/prepare.mjs"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.22.0",
+    "commander": "^14.0.2",
+    "minimatch": "^11.0.9",
+    "ts-morph": "^28.0.0",
+    "web-tree-sitter": "0.25.10",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@types/node": "^22.19.1",
+    "eslint": "^9.39.5",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.74.0",
+    "vitest": "^4.1.12"
+  },
+  "types": "./dist/index.d.ts"
+}

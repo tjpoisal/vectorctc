@@ -1,0 +1,17 @@
+# Example only (not tested in CI). The CTC server listens on 127.0.0.1 inside its container; the proxy shares
+# its network namespace and is the only thing published. Replace the Caddyfile's basic auth with your SSO proxy.
+services:
+  ctc:
+    build: { context: ../.., dockerfile: examples/self-host/Dockerfile }
+    ports:
+      - "8443:8443"   # the proxy's port (shared network namespace); 4317 stays on loopback
+    volumes:
+      - ./work:/work
+    environment:
+      CTC_ORG_POLICY: /work/org-policy.json
+      # CTC_AUDIT_HMAC_KEY: from your secret store
+  proxy:
+    image: caddy:2
+    network_mode: "service:ctc"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro

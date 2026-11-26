@@ -1,0 +1,16 @@
+name: Feature request
+description: A rule, agent integration or workflow you want
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: A concrete example of the agent change you want caught (or allowed) helps most.
+    validations: { required: true }
+  - type: textarea
+    id: idea
+    attributes: { label: Proposed behaviour }
+  - type: textarea
+    id: alternatives
+    attributes: { label: Alternatives you considered }

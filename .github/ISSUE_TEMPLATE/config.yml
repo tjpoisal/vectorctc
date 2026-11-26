@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: mailto:tim@deployunimatrix.com?subject=VectorCTC%20security
+    about: Report privately by email, not as an issue.
+  - name: Website and docs
+    url: https://vectorctc.com
+    about: Install instructions and the benchmark scoreboard.

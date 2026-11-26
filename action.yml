@@ -1,0 +1,61 @@
+name: VectorCTC gate
+description: Run the VectorCTC (Code Traffic Control) deterministic gate on a pull request as a required check, with a sticky PR comment and opt-in explainable auto-approve.
+author: VectorCTC
+branding:
+  icon: shield
+  color: green
+inputs:
+  mode:
+    description: "enforce (fail the check on holds) or observe (report only)"
+    default: enforce
+  comment:
+    description: Post or update one sticky PR comment with the findings and suggested fix patches
+    default: "true"
+  auto-approve:
+    description: "Opt-in: approve the PR when every risk factor passes (no holds, small diff, no sensitive paths, no dependency changes). Needs 'Allow GitHub Actions to create and approve pull requests' in the repo settings."
+    default: "false"
+  max-changed-lines:
+    description: Changed-line limit for auto-approve
+    default: "40"
+  scope:
+    description: Also hold files outside the milestone's allowed paths
+    default: "false"
+  working-directory:
+    description: Project root inside the repository
+    default: .
+  github-token:
+    description: Token for the PR comment and review
+    default: ${{ github.token }}
+outputs:
+  cleared:
+    description: "true when the gate cleared every changed file"
+    value: ${{ steps.gate.outputs.cleared }}
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Build VectorCTC
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: npm ci --no-audit --no-fund && npm run build
+    - name: Gate the pull request
+      id: gate
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+        CTC_FINDINGS_LOG: "off"
+      run: |
+        args=(ci --base "origin/${GITHUB_BASE_REF}" --head HEAD --max-lines "${{ inputs.max-changed-lines }}")
+        [ "${{ inputs.comment }}" = "true" ] && args+=(--github)
+        [ "${{ inputs.auto-approve }}" = "true" ] && args+=(--auto-approve)
+        [ "${{ inputs.scope }}" = "true" ] && args+=(--scope)
+        [ "${{ inputs.mode }}" = "observe" ] && args+=(--observe)
+        set +e
+        node "${{ github.action_path }}/dist/index.js" "${args[@]}" > /dev/null
+        code=$?
+        set -e
+        if [ $code -eq 0 ]; then echo "cleared=true" >> "$GITHUB_OUTPUT"; else echo "cleared=false" >> "$GITHUB_OUTPUT"; fi
+        exit $code

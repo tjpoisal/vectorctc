@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "activeMilestone": {
+    "id": "payments-v1",
+    "title": "Payments vertical slice",
+    "allowedPaths": ["src/payments/**", "src/types/payment.ts", "tests/payments/**"],
+    "status": "active"
+  },
+  "lockedFiles": [
+    "package-lock.json",
+    "pnpm-lock.yaml",
+    "yarn.lock",
+    "src/legacy/**",
+    "dist/**",
+    "coverage/**"
+  ],
+  "bannedImports": [
+    {
+      "pattern": "axios",
+      "reason": "Use src/lib/http.ts. A second HTTP client splits retries and auth.",
+      "useInstead": "import { request } from \"src/lib/http.ts\""
+    },
+    {
+      "pattern": "lodash",
+      "reason": "Use the language and the helpers already in src/lib.",
+      "useInstead": "import { groupBy } from \"src/lib/collections.ts\""
+    }
+  ],
+  "restrictedCalls": [
+    {
+      "callPattern": "eval",
+      "inPaths": ["**"],
+      "useInstead": "a named function in the project, never eval"
+    },
+    {
+      "callPattern": "Function",
+      "inPaths": ["**"],
+      "useInstead": "a named function in the project, never new Function"
+    },
+    {
+      "callPattern": "document.write",
+      "inPaths": ["src/**"],
+      "useInstead": "the render path in src/payments"
+    }
+  ],
+  "degradation": {
+    "maxFunctionLength": 80,
+    "maxCyclomaticComplexity": 12,
+    "flagUnusedImports": true
+  },
+  "circuitBreaker": {
+    "maxStrikes": 3
+  },
+  "rules": {
+    "naming": { "enabled": false, "customHookPrefix": null },
+    "boundaries": [],
+    "duplicates": {
+      "enabled": true,
+      "utilityGlobs": ["src/utils/**", "src/lib/**"],
+      "minAstNodes": 15,
+      "duplicateWarnThreshold": 0.7,
+      "duplicateBlockThreshold": 0.85
+    },
+    "phantom": { "enabled": false, "timeoutMs": 1500 },
+    "deadCode": { "enabled": true },
+    "readZones": { "enabled": true, "lockOnRed": false, "lockOnReRead": false }
+  },
+  "unimatrix": {
+    "enabled": false,
+    "endpoint": "https://www.deployunimatrix.com/api",
+    "spaceId": null,
+    "locationId": null,
+    "feedbackOnRepeat": false
+  }
+}

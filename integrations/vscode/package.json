@@ -1,0 +1,54 @@
+{
+  "name": "vectorctc-vscode",
+  "displayName": "VectorCTC",
+  "description": "(Preview, not published) Shows the VectorCTC gate's findings (the same ones the pre-write gate, pre-commit hook and CI check report) as you edit, with one-click verified fixes.",
+  "version": "0.5.0",
+  "publisher": "vectorctc",
+  "license": "Apache-2.0",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Linters"
+  ],
+  "main": "./src/extension.js",
+  "activationEvents": [
+    "workspaceContains:ctc.config.json"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "vectorctc.checkFile",
+        "title": "VectorCTC: Check this file"
+      },
+      {
+        "command": "vectorctc.applyFix",
+        "title": "VectorCTC: Apply suggested fix"
+      }
+    ],
+    "configuration": {
+      "title": "VectorCTC",
+      "properties": {
+        "vectorctc.command": {
+          "type": "array",
+          "default": [
+            "npx",
+            "ctc"
+          ],
+          "description": "Command that runs the ctc CLI."
+        },
+        "vectorctc.checkOnType": {
+          "type": "boolean",
+          "default": true,
+          "description": "Check the unsaved buffer while typing (debounced), not only on save."
+        },
+        "vectorctc.debounceMs": {
+          "type": "number",
+          "default": 600
+        }
+      }
+    }
+  },
+  "private": true,
+  "preview": true
+}

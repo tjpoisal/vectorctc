@@ -1,0 +1,8 @@
+:8443 {
+  tls internal
+  basicauth {
+    # replace with your SSO / forward-auth proxy
+    ctc REPLACE_WITH_BCRYPT_HASH
+  }
+  reverse_proxy 127.0.0.1:4317
+}

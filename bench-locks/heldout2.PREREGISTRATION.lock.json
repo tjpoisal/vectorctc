@@ -1,0 +1,15 @@
+{
+  "lockedAt": "2026-11-24T03:15:26.346Z",
+  "note": "Frozen before any arm was run. Changing these files afterwards invalidates comparisons.",
+  "corpusHash": "7055b7dcf682f54e8efe9af29ba59c5072b71db14447589c619925525234b260",
+  "files": {
+    "corpus/heldout2/sources.json": "0ef86322af98110cc613302acf858cd9b042086da5c24d101f249a2269112e94",
+    "corpus/heldout2/repos.json": "17e03db9602731d505c46301f2412d2f53170113febca2edb12c10a77614028a",
+    "corpus/heldout2/tasks/ufo.mjs": "abd1912d3cc12ed2a755a500d15558576aa44bc92cc5d0322d18e84e9454749f",
+    "corpus/heldout2/tasks/pathe.mjs": "3454b1ca1a95ac08daf969fec1b5011594c6a9bbf18a28597cab4eaa5ae01bca",
+    "corpus/heldout2/tasks/invoice-app.mjs": "5bbdac4766884814171e68934b39396285f127719933eee7ca14f48b512bf933",
+    "corpus/heldout2/tasks/scule.mjs": "a0b5d07e4ef19d91c42a305a3294c7a3366517869a5997efcad695a0490cc5c4",
+    "corpus/heldout2/policy/scule.json": "2e541136348395fc1f4864aa281998aa6c22fb7de3221a4df604ed8a7339ffe3",
+    "scripts/lib/rubric.mjs": "b4aa424ce9849c0b00999e927086a423fb1422c4df27cf8b7ad6ef45dd2a7489"
+  }
+}

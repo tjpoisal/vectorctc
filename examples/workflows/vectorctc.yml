@@ -1,0 +1,23 @@
+# .github/workflows/vectorctc.yml — run VectorCTC on every pull request.
+# Make it a required check: Settings → Branches → Branch protection → Require status checks → "VectorCTC gate".
+name: VectorCTC gate
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+permissions:
+  contents: read
+  pull-requests: write   # sticky comment and (opt-in) approval
+jobs:
+  gate:
+    name: VectorCTC gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # the gate diffs against the merge base
+      - uses: tjpoisal/vectorctc@v0.5.0
+        with:
+          mode: enforce            # or observe for a rollout week
+          comment: "true"
+          auto-approve: "false"    # opt-in; see the action README
+          max-changed-lines: "40"
