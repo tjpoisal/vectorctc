@@ -1,0 +1,16 @@
+{
+  "name": "vectorctc-plugins",
+  "owner": {
+    "name": "Timothy Poisal"
+  },
+  "plugins": [
+    {
+      "name": "vectorctc",
+      "source": "./",
+      "description": "Set up VectorCTC, route edits through the local write gate, and explain held changes."
+    }
+  ],
+  "metadata": {
+    "description": "Companion workflows for VectorCTC local code gates."
+  }
+}

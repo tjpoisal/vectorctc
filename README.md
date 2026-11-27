@@ -523,3 +523,11 @@ src/telemetry/   v0.4 hash-chained findings / audit log
 ```
 
 The Claude Code and Cursor wiring below is unchanged: point the MCP server at `node dist/index.js serve`, and install the pre-write hook if native Write should be denied. Ask the agent to onboard a task and then call `ctc_write_file` instead of the editor's own write tool.
+
+## Agent skills and marketplace installation
+
+Install the companion skills and find client setup, listing status, and pricing boundaries in [the marketplace guide](docs/marketplaces.md).
+
+```text
+/plugin install vectorctc --marketplace tjpoisal/vectorctc
+```
